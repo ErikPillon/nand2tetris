@@ -28,6 +28,19 @@ Vercel everything it needs:
 
 Deploy. That is the whole setup.
 
+> **Why there is no `pyproject.toml` in this repository.** Vercel inspects the
+> repository root to decide what kind of project it is. A `pyproject.toml` there
+> makes it classify the repo as a Python web app, ignore `outputDirectory`, and
+> fail with *"No python entrypoint found."* The pytest configuration therefore
+> lives in `pytest.ini`, which Vercel does not react to. Nothing is installed as
+> a package here, so `pyproject.toml` was buying us nothing anyway.
+>
+> If a future change reintroduces that failure, the guaranteed fix is a project
+> setting rather than a file: in Vercel, **Settings → Build and Deployment →
+> Root Directory**, set it to `site`. Vercel then only ever looks inside `site/`,
+> which contains nothing but HTML and JSON. Move `vercel.json` into `site/` and
+> drop its `outputDirectory` line if you go that route.
+
 **3. Fix the GitHub link in the page footer.**
 
 `site/index.html` links to `github.com/epillon/nand2tetris`. Change it if your
