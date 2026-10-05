@@ -1,0 +1,501 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Nand to Tetris</title>
+<meta name="description" content="Building a computer from one NAND gate up — progress, measured by the test suite.">
+<style>
+  :root {
+    color-scheme: light;
+    --plane:        #f9f9f7;
+    --surface:      #fcfcfb;
+    --ink:          #0b0b0b;
+    --ink-2:        #52514e;
+    --ink-muted:    #898781;
+    --hairline:     #e1e0d9;
+    --rule:         #c3c2b7;
+    --accent:       #2a78d6;
+    --accent-soft:  #cde2fb;
+    --good:         #0ca30c;
+    --warning:      #fab219;
+    --critical:     #d03b3b;
+    --ring:         rgba(11,11,11,0.10);
+
+    --s1: 4px;  --s2: 8px;  --s3: 16px;  --s4: 24px;  --s5: 40px;  --s6: 64px;
+    --fs-hero: 2.25rem; --fs-h1: 1.75rem; --fs-h2: 1.0625rem;
+    --fs-body: 1rem;    --fs-small: 0.8125rem;
+    --radius: 10px;
+    --font: system-ui, -apple-system, "Segoe UI", sans-serif;
+    --mono: ui-monospace, SFMono-Regular, Menlo, monospace;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:where(:not([data-theme="light"])) {
+      color-scheme: dark;
+      --plane: #0d0d0d; --surface: #1a1a19;
+      --ink: #ffffff; --ink-2: #c3c2b7; --ink-muted: #898781;
+      --hairline: #2c2c2a; --rule: #383835;
+      --accent: #3987e5; --accent-soft: #184f95;
+      --ring: rgba(255,255,255,0.10);
+    }
+  }
+  :root[data-theme="dark"] {
+    color-scheme: dark;
+    --plane: #0d0d0d; --surface: #1a1a19;
+    --ink: #ffffff; --ink-2: #c3c2b7; --ink-muted: #898781;
+    --hairline: #2c2c2a; --rule: #383835;
+    --accent: #3987e5; --accent-soft: #184f95;
+    --ring: rgba(255,255,255,0.10);
+  }
+
+  * { box-sizing: border-box; }
+  html { -webkit-text-size-adjust: 100%; }
+  body {
+    margin: 0; background: var(--plane); color: var(--ink);
+    font: var(--fs-body)/1.55 var(--font);
+    padding: var(--s5) var(--s3) var(--s6);
+  }
+  .wrap { max-width: 56rem; margin: 0 auto; }
+  h1, h2, h3 { margin: 0; font-weight: 600; letter-spacing: -0.01em; }
+  h1 { font-size: var(--fs-h1); }
+  h2 { font-size: var(--fs-h2); }
+  p { margin: 0; }
+  a { color: var(--accent); text-decoration-thickness: 1px; text-underline-offset: 2px; }
+  :focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; border-radius: 3px; }
+
+  /* ---------- header ---------- */
+  .masthead { margin-bottom: var(--s5); }
+  .masthead .epigraph {
+    margin-top: var(--s2); color: var(--ink-2); max-width: 44ch;
+  }
+  .asof { margin-top: var(--s3); font-size: var(--fs-small); color: var(--ink-muted); }
+
+  /* ---------- stat tiles ---------- */
+  .stats {
+    display: grid; gap: var(--s2); margin-bottom: var(--s5);
+    grid-template-columns: repeat(auto-fit, minmax(10rem, 1fr));
+  }
+  .tile {
+    background: var(--surface); border: 1px solid var(--hairline);
+    border-radius: var(--radius); padding: var(--s3);
+  }
+  .tile dt { font-size: var(--fs-small); color: var(--ink-2); margin: 0; }
+  .tile dd {
+    margin: var(--s1) 0 0; font-size: var(--fs-hero); line-height: 1.1;
+    font-weight: 600; letter-spacing: -0.02em;
+  }
+  .tile dd small { font-size: var(--fs-h2); font-weight: 400; color: var(--ink-muted); }
+  .tile .sub { font-size: var(--fs-small); color: var(--ink-muted); margin-top: var(--s1); }
+
+  /* ---------- the journey ---------- */
+  .journey { list-style: none; margin: 0 0 var(--s6); padding: 0; }
+  .station { display: grid; grid-template-columns: 32px 1fr; gap: var(--s3); }
+  .rail { position: relative; display: flex; justify-content: center; }
+  .rail::before, .rail::after {
+    content: ""; position: absolute; left: 50%; width: 2px; transform: translateX(-50%);
+  }
+  .rail::before { top: 0; height: 14px; background: var(--rule); }
+  .rail::after { top: 46px; bottom: 0; background: var(--rule); }
+  .station:first-child .rail::before { display: none; }
+  .station:last-child .rail::after { display: none; }
+  .station[data-done="true"] .rail::before,
+  .station[data-done="true"] .rail::after { background: var(--accent); }
+  .station[data-status="in_progress"] .rail::before { background: var(--accent); }
+  .node {
+    position: relative; z-index: 1; margin-top: 14px;
+    width: 32px; height: 32px; border-radius: 50%;
+    display: grid; place-items: center; flex: none;
+    font-size: var(--fs-small); font-weight: 600; font-variant-numeric: tabular-nums;
+    background: var(--surface); color: var(--ink-muted);
+    border: 2px solid var(--rule);
+  }
+  .station[data-status="complete"] .node { background: var(--accent); border-color: var(--accent); color: #fff; }
+  .station[data-status="in_progress"] .node { border-color: var(--accent); color: var(--accent); }
+  .station[data-status="in_progress"] .node::after {
+    content: ""; position: absolute; inset: -6px; border-radius: 50%;
+    border: 2px solid var(--accent); opacity: 0.3;
+  }
+
+  .card {
+    min-width: 0;
+    background: var(--surface); border: 1px solid var(--hairline);
+    border-radius: var(--radius); padding: var(--s3);
+    margin-bottom: var(--s2);
+  }
+  .station[data-status="locked"] .card { background: none; border-style: dashed; }
+  .card-head { display: flex; flex-wrap: wrap; align-items: baseline; gap: var(--s2); }
+  .card-head h2 { flex: 1 1 auto; min-width: 12ch; }
+  .tagline { color: var(--ink-2); margin-top: var(--s1); max-width: 62ch; }
+
+  .badge {
+    font-size: var(--fs-small); font-weight: 500; white-space: nowrap;
+    padding: 2px var(--s2); border-radius: 99px;
+    border: 1px solid var(--ring); color: var(--ink-2);
+  }
+  .badge[data-tone="complete"] { color: var(--good); border-color: var(--good); }
+  .badge[data-tone="in_progress"] { color: var(--accent); border-color: var(--accent); }
+
+  /* meters: 4px bar, rounded ends, direct label */
+  .meter { margin-top: var(--s3); }
+  .meter-label {
+    display: flex; justify-content: space-between; gap: var(--s2);
+    font-size: var(--fs-small); color: var(--ink-2); margin-bottom: var(--s1);
+    font-variant-numeric: tabular-nums;
+  }
+  .track { height: 4px; border-radius: 99px; background: var(--hairline); overflow: hidden; }
+  .fill { height: 100%; border-radius: 99px; background: var(--accent); transition: width .25s ease-out; }
+  @media (prefers-reduced-motion: reduce) { .fill { transition: none; } }
+
+  .disclose {
+    margin-top: var(--s3); font: inherit; font-size: var(--fs-small);
+    background: none; border: 0; padding: var(--s1) 0; color: var(--accent);
+    cursor: pointer; min-height: 44px; display: inline-flex; align-items: center; gap: var(--s1);
+  }
+  .disclose::before { content: "▸"; display: inline-block; transition: transform .2s ease-out; }
+  .disclose[aria-expanded="true"]::before { transform: rotate(90deg); }
+
+  .detail { margin-top: var(--s2); border-top: 1px solid var(--hairline); padding-top: var(--s3); }
+  .detail[hidden] { display: none; }
+  .links { font-size: var(--fs-small); color: var(--ink-muted); margin-bottom: var(--s3); }
+  .links code { font-family: var(--mono); font-size: 0.95em; }
+
+  .table-scroll { overflow-x: auto; }
+  table.chips { width: 100%; border-collapse: collapse; font-size: var(--fs-small); }
+  table.chips caption { text-align: left; color: var(--ink-muted); padding-bottom: var(--s2); }
+  table.chips th { text-align: left; font-weight: 500; color: var(--ink-muted); padding: 0 var(--s2) var(--s1) 0; }
+  table.chips td { padding: var(--s1) var(--s2) var(--s1) 0; border-top: 1px solid var(--hairline); vertical-align: middle; }
+  table.chips th:last-child, table.chips td:last-child { padding-right: 0; }
+  .chip-name { font-family: var(--mono); color: var(--ink); white-space: nowrap; }
+  .num { font-variant-numeric: tabular-nums; text-align: right; white-space: nowrap; }
+
+  .state { display: inline-flex; align-items: center; gap: 6px; white-space: nowrap; }
+  .state::before { content: ""; width: 8px; height: 8px; border-radius: 50%; background: var(--rule); flex: none; }
+  .state[data-tone="green"]::before { background: var(--good); }
+  .state[data-tone="amber"]::before { background: var(--warning); }
+  .state[data-tone="red"]::before { background: var(--critical); }
+
+  .cost { display: flex; align-items: center; gap: var(--s2); justify-content: flex-end; }
+  .cost .track { width: 72px; flex: none; }
+  .cost .fill[data-over="true"] { background: var(--warning); }
+
+  /* ---------- side quests ---------- */
+  .quests { margin-top: var(--s5); }
+  .quests > p { color: var(--ink-2); max-width: 62ch; margin-top: var(--s2); }
+  .quest-group { margin-top: var(--s4); }
+  .quest-group > h3 {
+    font-size: var(--fs-small); font-weight: 600; color: var(--ink-muted);
+    text-transform: uppercase; letter-spacing: 0.06em; margin-bottom: var(--s2);
+  }
+  .quest-grid { display: grid; gap: var(--s2); grid-template-columns: repeat(auto-fit, minmax(16rem, 1fr)); }
+  .quest {
+    background: var(--surface); border: 1px solid var(--hairline);
+    border-radius: var(--radius); padding: var(--s3);
+  }
+  .quest[data-locked="true"] { background: none; border-style: dashed; }
+  .quest h4 { margin: 0; font-size: var(--fs-body); font-weight: 600; }
+  .quest p { margin-top: var(--s1); font-size: var(--fs-small); color: var(--ink-2); }
+  .quest-meta { display: flex; flex-wrap: wrap; gap: var(--s1) var(--s2); margin-top: var(--s2); font-size: var(--fs-small); color: var(--ink-muted); }
+
+  footer { margin-top: var(--s6); padding-top: var(--s4); border-top: 1px solid var(--hairline); font-size: var(--fs-small); color: var(--ink-muted); }
+  footer p + p { margin-top: var(--s1); }
+
+  /* ---------- loading / error ---------- */
+  .skeleton { background: var(--hairline); border-radius: var(--radius); animation: pulse 1.4s ease-in-out infinite; }
+  @keyframes pulse { 0%,100% { opacity: 1 } 50% { opacity: .5 } }
+  @media (prefers-reduced-motion: reduce) { .skeleton { animation: none; } }
+  .notice { background: var(--surface); border: 1px solid var(--hairline); border-radius: var(--radius); padding: var(--s4); }
+  .notice h2 { margin-bottom: var(--s2); }
+  .notice button {
+    margin-top: var(--s3); font: inherit; min-height: 44px; padding: 0 var(--s3);
+    border-radius: 8px; border: 1px solid var(--accent); background: var(--accent); color: #fff; cursor: pointer;
+  }
+  .visually-hidden {
+    position: absolute; width: 1px; height: 1px; overflow: hidden;
+    clip-path: inset(50%); white-space: nowrap;
+  }
+  @media (max-width: 34rem) {
+    /* The NAND bar is a nicety; the number beside it carries the same fact. */
+    .cost .track { display: none; }
+    .links code { word-break: break-all; }
+  }
+  @media (max-width: 30rem) {
+    body { padding-top: var(--s4); }
+    .station { grid-template-columns: 24px 1fr; gap: var(--s2); }
+    .node { width: 24px; height: 24px; margin-top: 16px; font-size: 0.6875rem; }
+    .rail::after { top: 40px; }
+    .tile dd { font-size: 1.75rem; }
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <header class="masthead">
+    <h1>Nand to Tetris</h1>
+    <p class="epigraph">
+      A computer built from one NAND gate up — gates, arithmetic, memory, a CPU,
+      an assembler, a virtual machine, a compiler, an operating system.
+      Every chip here is wired by hand. The language model is the teacher; the
+      work is mine, and the test suite is the judge.
+    </p>
+    <p class="asof" id="asof"></p>
+  </header>
+
+  <dl class="stats" id="stats" aria-label="Overall progress">
+    <div class="tile skeleton" style="height:7rem"></div>
+    <div class="tile skeleton" style="height:7rem"></div>
+    <div class="tile skeleton" style="height:7rem"></div>
+  </dl>
+
+  <main>
+    <div id="live" class="visually-hidden" role="status" aria-live="polite"></div>
+    <div id="content">
+      <ol class="journey">
+        <li class="station"><div class="rail"><span class="node"></span></div>
+          <div class="card skeleton" style="height:9rem"></div></li>
+        <li class="station"><div class="rail"><span class="node"></span></div>
+          <div class="card skeleton" style="height:9rem"></div></li>
+        <li class="station"><div class="rail"><span class="node"></span></div>
+          <div class="card skeleton" style="height:9rem"></div></li>
+      </ol>
+    </div>
+  </main>
+
+  <footer>
+    <p id="footnote">Every number on this page is measured by running the test
+      suite — nothing is typed in by hand.</p>
+    <p><a href="https://github.com/epillon/nand2tetris">Source and lessons on GitHub</a></p>
+  </footer>
+</div>
+
+<script>
+const PLURAL = (n, one, many) => `${n.toLocaleString("en-GB")} ${n === 1 ? one : many}`;
+const PCT = (a, b) => (b ? Math.round((a / b) * 100) : 0);
+
+const STATUS_WORD = {
+  complete: "Complete",
+  in_progress: "In progress",
+  open: "Not started",
+  locked: "Ahead",
+};
+
+const EFFORT_WORD = { "an evening": "An evening", "a weekend": "A weekend", "a project": "A project" };
+
+function el(tag, props = {}, ...kids) {
+  const node = document.createElement(tag);
+  for (const [k, v] of Object.entries(props)) {
+    if (v === null || v === undefined || v === false) continue;
+    if (k === "class") node.className = v;
+    else if (k === "text") node.textContent = v;
+    else if (k === "html") node.innerHTML = v;
+    else node.setAttribute(k, v === true ? "" : String(v));
+  }
+  for (const kid of kids.flat()) if (kid) node.append(kid);
+  return node;
+}
+
+function meter(done, total, label) {
+  return el("div", { class: "meter" },
+    el("div", { class: "meter-label" },
+      el("span", { text: label }),
+      el("span", { text: total ? `${PCT(done, total)}%` : "—" })),
+    el("div", { class: "track", role: "img", "aria-label": `${label}, ${PCT(done, total)} per cent` },
+      el("div", { class: "fill", style: `width:${PCT(done, total)}%` })));
+}
+
+function costCell(chip) {
+  if (chip.used === null || !chip.par) return el("td", { class: "num", text: "—" });
+  const over = chip.used > chip.par;
+  const width = Math.min(100, Math.round((chip.par / chip.used) * 100));
+  return el("td", { class: "num" },
+    el("div", { class: "cost" },
+      el("span", { text: `${chip.used.toLocaleString("en-GB")} / ${chip.par}` }),
+      el("div", { class: "track", role: "img",
+                  "aria-label": over ? `${chip.used} NANDs, par is ${chip.par}` : "at par" },
+        el("div", { class: "fill", "data-over": over, style: `width:${over ? width : 100}%` }))));
+}
+
+function chipTable(project) {
+  const rows = project.chips.map(chip => {
+    const t = chip.tests;
+    let tone = "grey", word = "Ahead";
+    if (chip.green) { tone = "green"; word = chip.note === "at par" ? "Done, at par" : "Done"; }
+    else if (t && t.passed > 0) { tone = "amber"; word = "In progress"; }
+    else if (chip.next_up) { tone = "grey"; word = "Next up"; }
+    if (chip.note === "over budget") { tone = "red"; word = "Over budget"; }
+    return el("tr", {},
+      el("td", {}, el("span", { class: "chip-name", text: chip.label })),
+      el("td", {}, el("span", { class: "state", "data-tone": tone, text: word })),
+      el("td", { class: "num", text: t ? `${t.passed}/${t.total}` : "—" }),
+      costCell(chip));
+  });
+  const table = el("table", { class: "chips" },
+    el("caption", { text: "NAND cost is what your chip burns against the minimum it needs." }),
+    el("thead", {}, el("tr", {},
+      el("th", { scope: "col", text: "Chip" }),
+      el("th", { scope: "col", text: "State" }),
+      el("th", { scope: "col", class: "num", text: "Tests" }),
+      el("th", { scope: "col", class: "num", text: "NANDs / par" }))),
+    el("tbody", {}, rows));
+  return el("div", { class: "table-scroll", tabindex: "0", role: "region",
+                     "aria-label": `${project.title} deliverables` }, table);
+}
+
+function station(project, isCurrent) {
+  const s = project.suite;
+  const done = project.status === "complete";
+  const bodyId = `detail-p${project.number}`;
+
+  const head = el("div", { class: "card-head" },
+    el("h2", { text: project.title }),
+    el("span", { class: "badge", "data-tone": project.status, text: STATUS_WORD[project.status] }));
+
+  const parts = [head, el("p", { class: "tagline", text: project.tagline })];
+
+  if (s.total) {
+    parts.push(meter(s.passed, s.total,
+      `${PLURAL(s.passed, "test", "tests")} passing of ${s.total}`));
+  }
+
+  const links = [];
+  if (project.lesson) links.push(`Lesson: <code>${project.lesson}</code>`);
+  if (project.workbench) links.push(`You edit: <code>${project.workbench}</code>`);
+
+  const detail = el("div", { class: "detail", id: bodyId, hidden: !isCurrent },
+    links.length ? el("p", { class: "links", html: links.join(" &nbsp;·&nbsp; ") }) : null,
+    chipTable(project),
+    project.optimal.total
+      ? el("p", { class: "links", style: "margin-top:16px;margin-bottom:0",
+                  text: `Par challenges: ${project.optimal.passed} of ${project.optimal.total} chips at the minimal NAND count.` })
+      : null);
+
+  const button = el("button", { class: "disclose", type: "button",
+    "aria-expanded": String(!!isCurrent), "aria-controls": bodyId },
+    el("span", { text: `${isCurrent ? "Hide" : "Show"} the ${project.chips.length} deliverables` }));
+
+  button.addEventListener("click", () => {
+    const open = button.getAttribute("aria-expanded") === "true";
+    button.setAttribute("aria-expanded", String(!open));
+    detail.hidden = open;
+    button.querySelector("span").textContent =
+      `${open ? "Show" : "Hide"} the ${project.chips.length} deliverables`;
+    history.replaceState(null, "", open ? "#" : `#p${project.number}`);
+  });
+
+  parts.push(button, detail);
+
+  return el("li", { class: "station", "data-status": project.status, "data-done": String(done),
+                    id: `p${project.number}` },
+    el("div", { class: "rail" }, el("span", { class: "node", text: String(project.number) })),
+    el("div", { class: "card" }, parts));
+}
+
+function statTiles(t) {
+  const tiles = [
+    { label: "Projects complete", value: t.projects_complete, of: t.projects_total,
+      sub: "Twelve layers, gates to Tetris" },
+    { label: "Chips and programs built", value: t.chips_green, of: t.chips_total,
+      sub: `${PLURAL(t.chips_at_par, "chip", "chips")} at the minimal NAND count` },
+    { label: "Tests passing", value: t.tests_passed, of: t.tests_total,
+      sub: `${PLURAL(t.nands_in_use, "NAND gate", "NAND gates")} wired so far` },
+  ];
+  return tiles.map(tile => el("div", { class: "tile" },
+    el("dt", { text: tile.label }),
+    el("dd", {}, el("span", { text: tile.value.toLocaleString("en-GB") }),
+                 el("small", { text: ` / ${tile.of.toLocaleString("en-GB")}` })),
+    el("div", { class: "sub", text: tile.sub })));
+}
+
+function questSections(quests, projects) {
+  const complete = new Set(projects.filter(p => p.status === "complete").map(p => p.number));
+  const byAfter = new Map();
+  for (const q of quests) {
+    if (!byAfter.has(q.after)) byAfter.set(q.after, []);
+    byAfter.get(q.after).push(q);
+  }
+  const groups = [...byAfter.keys()].sort((a, b) => a - b).map(after => {
+    const project = projects.find(p => p.number === after);
+    const unlocked = complete.has(after);
+    const cards = byAfter.get(after).map(q => el("article", { class: "quest", "data-locked": String(!unlocked) },
+      el("h4", { text: q.title }),
+      el("p", { text: q.blurb }),
+      el("div", { class: "quest-meta" },
+        el("span", { text: EFFORT_WORD[q.effort] || q.effort }),
+        el("span", { text: "·" }),
+        el("span", { text: q.kind }),
+        q.status !== "idea" ? el("span", { text: `· ${q.status}` }) : null)));
+    return el("section", { class: "quest-group" },
+      el("h3", { text: unlocked
+        ? `Open now — after project ${after}, ${project ? project.title.toLowerCase() : ""}`
+        : `Waiting on project ${after}, ${project ? project.title.toLowerCase() : ""}` }),
+      el("div", { class: "quest-grid" }, cards));
+  });
+
+  return el("section", { class: "quests" },
+    el("h2", { style: "font-size:var(--fs-h1)", text: "Side quests" }),
+    el("p", { text: "Things the book does not ask for. Each one branches off a "
+      + "project and goes somewhere the standard course stops short of — a faster adder, "
+      + "a proof instead of a test, real silicon, a garbage collector, a second compiler "
+      + "back end. None of them are required. That is rather the point." }),
+    groups);
+}
+
+function render(data) {
+  const stats = document.getElementById("stats");
+  stats.replaceChildren(...statTiles(data.totals));
+
+  const current = data.current_project;
+  const fromHash = Number((location.hash.match(/^#p(\d+)$/) || [])[1]);
+  const open = fromHash || current;
+
+  const journey = el("ol", { class: "journey" },
+    data.projects.map(p => station(p, p.number === open)));
+
+  document.getElementById("content").replaceChildren(
+    journey, questSections(data.side_quests, data.projects));
+
+  const when = new Date(data.generated_at);
+  document.getElementById("asof").textContent =
+    `Measured ${when.toLocaleDateString("en-GB", { day: "numeric", month: "long", year: "numeric" })} `
+    + `at ${when.toLocaleTimeString("en-GB", { hour: "2-digit", minute: "2-digit" })}, `
+    + `straight from the test suite.`;
+  document.getElementById("live").textContent =
+    `Progress loaded. ${data.totals.tests_passed} of ${data.totals.tests_total} tests passing.`;
+  if (fromHash) document.getElementById(`p${fromHash}`)?.scrollIntoView({ block: "center" });
+}
+
+function showProblem(message) {
+  document.getElementById("stats").replaceChildren();
+  const retry = el("button", { type: "button", text: "Try again" });
+  retry.addEventListener("click", load);
+  document.getElementById("content").replaceChildren(
+    el("div", { class: "notice" },
+      el("h2", { text: "Progress could not be loaded" }),
+      el("p", { text: message }),
+      retry));
+  document.getElementById("live").textContent = `Could not load progress. ${message}`;
+}
+
+async function load() {
+  try {
+    const response = await fetch(`progress.json?t=${Date.now()}`, { cache: "no-store" });
+    if (!response.ok) throw new Error(`the server answered ${response.status}`);
+    render(await response.json());
+  } catch (error) {
+    showProblem("The progress file is missing or unreadable. "
+      + "If you are running this locally, generate it with ./scripts/n2t site.");
+  }
+}
+
+load();
+window.addEventListener("hashchange", () => {
+  const n = Number((location.hash.match(/^#p(\d+)$/) || [])[1]);
+  if (!n) return;
+  const station = document.getElementById(`p${n}`);
+  const button = station?.querySelector(".disclose");
+  if (button && button.getAttribute("aria-expanded") === "false") button.click();
+  station?.scrollIntoView({ block: "center" });
+});
+</script>
+</body>
+</html>

@@ -1,0 +1,19 @@
+#!/usr/bin/env bash
+# Tiny task runner. Usage: ./scripts/n2t <command>
+set -euo pipefail
+cd "$(dirname "$0")/.."
+PY=.venv/bin/python
+case "${1:-help}" in
+  test)     shift; $PY -m pytest "$@" ;;
+  next)     $PY -m pytest -x --no-header ;;          # stop at the first failing test: your next task
+  p1)       $PY -m pytest tests/project_01_gates -x --no-header ;;
+  p2)       $PY -m pytest tests/project_02_alu -x --no-header ;;
+  optimal)  shift; $PY -m pytest -m optimal "$@" ;;  # the NAND-golf stretch goals
+  all)      $PY -m pytest -m "" ;;                   # everything, stretch goals included
+  status)   $PY tools/progress.py ;;
+  lint)     $PY -m pytest tests -k purity -m "" ;;
+  costs)    $PY tools/costs.py ;;
+  site)     $PY tools/emit_progress.py ;;
+  repl)     $PY -i -c "from hardware.primitives import *; from hardware.gates import *; print('nand/bus helpers + your gates loaded')" ;;
+  *) echo "n2t: test | next | p1 | p2 | optimal | all | status | costs | site | lint | repl" ;;
+esac

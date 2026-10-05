@@ -1,0 +1,1248 @@
+{
+  "generated_at": "2026-10-05T21:04:03+00:00",
+  "current_project": 1,
+  "totals": {
+    "tests_passed": 49,
+    "tests_total": 249,
+    "chips_green": 4,
+    "chips_total": 59,
+    "projects_complete": 0,
+    "projects_total": 12,
+    "optimal_passed": 3,
+    "optimal_total": 20,
+    "nands_in_use": 15,
+    "chips_at_par": 3
+  },
+  "projects": [
+    {
+      "number": 1,
+      "slug": "project_01_gates",
+      "title": "Boolean logic",
+      "tagline": "Fifteen gates from one NAND. The claim that a computer can exist, verified by construction.",
+      "workbench": "hardware/gates.py",
+      "lesson": "lessons/01-boolean-logic.md",
+      "status": "in_progress",
+      "suite": {
+        "total": 105,
+        "passed": 39,
+        "failed": 66,
+        "skipped": 0
+      },
+      "optimal": {
+        "total": 15,
+        "passed": 3,
+        "failed": 12,
+        "skipped": 0
+      },
+      "chips": [
+        {
+          "name": "not_",
+          "label": "Not",
+          "tests": {
+            "total": 4,
+            "passed": 4,
+            "failed": 0,
+            "skipped": 0
+          },
+          "green": true,
+          "built": true,
+          "used": 1,
+          "par": 1,
+          "budget": 2,
+          "note": "at par"
+        },
+        {
+          "name": "and_",
+          "label": "And",
+          "tests": {
+            "total": 7,
+            "passed": 7,
+            "failed": 0,
+            "skipped": 0
+          },
+          "green": true,
+          "built": true,
+          "used": 2,
+          "par": 2,
+          "budget": 4,
+          "note": "at par"
+        },
+        {
+          "name": "or_",
+          "label": "Or",
+          "tests": {
+            "total": 8,
+            "passed": 8,
+            "failed": 0,
+            "skipped": 0
+          },
+          "green": true,
+          "built": true,
+          "used": 3,
+          "par": 3,
+          "budget": 6,
+          "note": "at par"
+        },
+        {
+          "name": "xor",
+          "label": "Xor",
+          "tests": {
+            "total": 7,
+            "passed": 7,
+            "failed": 0,
+            "skipped": 0
+          },
+          "green": true,
+          "built": true,
+          "used": 9,
+          "par": 4,
+          "budget": 10,
+          "note": "5 over par"
+        },
+        {
+          "name": "mux",
+          "label": "Mux",
+          "tests": {
+            "total": 7,
+            "passed": 0,
+            "failed": 7,
+            "skipped": 0
+          },
+          "green": false,
+          "built": false,
+          "used": null,
+          "par": 4,
+          "budget": 10,
+          "note": "not built yet",
+          "next_up": true
+        },
+        {
+          "name": "dmux",
+          "label": "DMux",
+          "tests": {
+            "total": 6,
+            "passed": 0,
+            "failed": 6,
+            "skipped": 0
+          },
+          "green": false,
+          "built": false,
+          "used": null,
+          "par": 5,
+          "budget": 12,
+          "note": "not built yet"
+        },
+        {
+          "name": "not16",
+          "label": "Not16",
+          "tests": {
+            "total": 6,
+            "passed": 0,
+            "failed": 6,
+            "skipped": 0
+          },
+          "green": false,
+          "built": false,
+          "used": null,
+          "par": 16,
+          "budget": 32,
+          "note": "not built yet"
+        },
+        {
+          "name": "and16",
+          "label": "And16",
+          "tests": {
+            "total": 5,
+            "passed": 0,
+            "failed": 5,
+            "skipped": 0
+          },
+          "green": false,
+          "built": false,
+          "used": null,
+          "par": 32,
+          "budget": 64,
+          "note": "not built yet"
+        },
+        {
+          "name": "or16",
+          "label": "Or16",
+          "tests": {
+            "total": 5,
+            "passed": 0,
+            "failed": 5,
+            "skipped": 0
+          },
+          "green": false,
+          "built": false,
+          "used": null,
+          "par": 48,
+          "budget": 96,
+          "note": "not built yet"
+        },
+        {
+          "name": "mux16",
+          "label": "Mux16",
+          "tests": {
+            "total": 6,
+            "passed": 0,
+            "failed": 6,
+            "skipped": 0
+          },
+          "green": false,
+          "built": false,
+          "used": null,
+          "par": 64,
+          "budget": 160,
+          "note": "not built yet"
+        },
+        {
+          "name": "or8way",
+          "label": "Or8Way",
+          "tests": {
+            "total": 5,
+            "passed": 0,
+            "failed": 5,
+            "skipped": 0
+          },
+          "green": false,
+          "built": false,
+          "used": null,
+          "par": 21,
+          "budget": 56,
+          "note": "not built yet"
+        },
+        {
+          "name": "mux4way16",
+          "label": "Mux4Way16",
+          "tests": {
+            "total": 5,
+            "passed": 0,
+            "failed": 5,
+            "skipped": 0
+          },
+          "green": false,
+          "built": false,
+          "used": null,
+          "par": 192,
+          "budget": 520,
+          "note": "not built yet"
+        },
+        {
+          "name": "mux8way16",
+          "label": "Mux8Way16",
+          "tests": {
+            "total": 4,
+            "passed": 0,
+            "failed": 4,
+            "skipped": 0
+          },
+          "green": false,
+          "built": false,
+          "used": null,
+          "par": 448,
+          "budget": 1200,
+          "note": "not built yet"
+        },
+        {
+          "name": "dmux4way",
+          "label": "DMux4Way",
+          "tests": {
+            "total": 7,
+            "passed": 0,
+            "failed": 7,
+            "skipped": 0
+          },
+          "green": false,
+          "built": false,
+          "used": null,
+          "par": 15,
+          "budget": 40,
+          "note": "not built yet"
+        },
+        {
+          "name": "dmux8way",
+          "label": "DMux8Way",
+          "tests": {
+            "total": 6,
+            "passed": 0,
+            "failed": 6,
+            "skipped": 0
+          },
+          "green": false,
+          "built": false,
+          "used": null,
+          "par": 35,
+          "budget": 96,
+          "note": "not built yet"
+        }
+      ],
+      "chips_green": 4,
+      "chips_total": 15
+    },
+    {
+      "number": 2,
+      "slug": "project_02_alu",
+      "title": "Boolean arithmetic",
+      "tagline": "Addition out of nothing but NAND, then an ALU that gets eighteen functions from two units.",
+      "workbench": "hardware/alu.py",
+      "lesson": "lessons/02-boolean-arithmetic.md",
+      "status": "open",
+      "suite": {
+        "total": 144,
+        "passed": 10,
+        "failed": 134,
+        "skipped": 0
+      },
+      "optimal": {
+        "total": 5,
+        "passed": 0,
+        "failed": 5,
+        "skipped": 0
+      },
+      "chips": [
+        {
+          "name": "half_adder",
+          "label": "HalfAdder",
+          "tests": {
+            "total": 6,
+            "passed": 0,
+            "failed": 6,
+            "skipped": 0
+          },
+          "green": false,
+          "built": false,
+          "used": null,
+          "par": 6,
+          "budget": 14,
+          "note": "not built yet"
+        },
+        {
+          "name": "full_adder",
+          "label": "FullAdder",
+          "tests": {
+            "total": 8,
+            "passed": 0,
+            "failed": 8,
+            "skipped": 0
+          },
+          "green": false,
+          "built": false,
+          "used": null,
+          "par": 15,
+          "budget": 36,
+          "note": "not built yet"
+        },
+        {
+          "name": "add16",
+          "label": "Add16",
+          "tests": {
+            "total": 12,
+            "passed": 0,
+            "failed": 12,
+            "skipped": 0
+          },
+          "green": false,
+          "built": false,
+          "used": null,
+          "par": 231,
+          "budget": 620,
+          "note": "not built yet"
+        },
+        {
+          "name": "inc16",
+          "label": "Inc16",
+          "tests": {
+            "total": 7,
+            "passed": 0,
+            "failed": 7,
+            "skipped": 0
+          },
+          "green": false,
+          "built": false,
+          "used": null,
+          "par": 96,
+          "budget": 620,
+          "note": "not built yet"
+        },
+        {
+          "name": "alu",
+          "label": "ALU",
+          "tests": {
+            "total": 93,
+            "passed": 0,
+            "failed": 93,
+            "skipped": 0
+          },
+          "green": false,
+          "built": false,
+          "used": null,
+          "par": 741,
+          "budget": 1900,
+          "note": "not built yet"
+        }
+      ],
+      "chips_green": 0,
+      "chips_total": 5
+    },
+    {
+      "number": 3,
+      "slug": "project_03_memory",
+      "title": "Sequential logic",
+      "tagline": "A chip whose output depends on the past. The first genuinely hard idea in the course.",
+      "workbench": "hardware/sequential.py",
+      "lesson": null,
+      "status": "locked",
+      "suite": {
+        "total": 0,
+        "passed": 0,
+        "failed": 0,
+        "skipped": 0
+      },
+      "optimal": {
+        "total": 0,
+        "passed": 0
+      },
+      "chips": [
+        {
+          "name": "dff",
+          "label": "DFF",
+          "tests": null,
+          "green": false,
+          "built": false,
+          "used": null,
+          "par": null,
+          "budget": null,
+          "note": "planned"
+        },
+        {
+          "name": "bit",
+          "label": "Bit",
+          "tests": null,
+          "green": false,
+          "built": false,
+          "used": null,
+          "par": null,
+          "budget": null,
+          "note": "planned"
+        },
+        {
+          "name": "register",
+          "label": "Register",
+          "tests": null,
+          "green": false,
+          "built": false,
+          "used": null,
+          "par": null,
+          "budget": null,
+          "note": "planned"
+        },
+        {
+          "name": "ram8",
+          "label": "RAM8",
+          "tests": null,
+          "green": false,
+          "built": false,
+          "used": null,
+          "par": null,
+          "budget": null,
+          "note": "planned"
+        },
+        {
+          "name": "ram64",
+          "label": "RAM64",
+          "tests": null,
+          "green": false,
+          "built": false,
+          "used": null,
+          "par": null,
+          "budget": null,
+          "note": "planned"
+        },
+        {
+          "name": "ram512",
+          "label": "RAM512",
+          "tests": null,
+          "green": false,
+          "built": false,
+          "used": null,
+          "par": null,
+          "budget": null,
+          "note": "planned"
+        },
+        {
+          "name": "ram4k",
+          "label": "RAM4K",
+          "tests": null,
+          "green": false,
+          "built": false,
+          "used": null,
+          "par": null,
+          "budget": null,
+          "note": "planned"
+        },
+        {
+          "name": "ram16k",
+          "label": "RAM16K",
+          "tests": null,
+          "green": false,
+          "built": false,
+          "used": null,
+          "par": null,
+          "budget": null,
+          "note": "planned"
+        },
+        {
+          "name": "pc",
+          "label": "PC",
+          "tests": null,
+          "green": false,
+          "built": false,
+          "used": null,
+          "par": null,
+          "budget": null,
+          "note": "planned"
+        }
+      ],
+      "chips_green": 0,
+      "chips_total": 9
+    },
+    {
+      "number": 4,
+      "slug": "project_04_asm",
+      "title": "Machine language",
+      "tagline": "Write programs for a machine that does not exist yet, in its own assembly.",
+      "workbench": "projects/04/",
+      "lesson": null,
+      "status": "locked",
+      "suite": {
+        "total": 0,
+        "passed": 0,
+        "failed": 0,
+        "skipped": 0
+      },
+      "optimal": {
+        "total": 0,
+        "passed": 0
+      },
+      "chips": [
+        {
+          "name": "mult",
+          "label": "Mult.asm",
+          "tests": null,
+          "green": false,
+          "built": false,
+          "used": null,
+          "par": null,
+          "budget": null,
+          "note": "planned"
+        },
+        {
+          "name": "fill",
+          "label": "Fill.asm",
+          "tests": null,
+          "green": false,
+          "built": false,
+          "used": null,
+          "par": null,
+          "budget": null,
+          "note": "planned"
+        }
+      ],
+      "chips_green": 0,
+      "chips_total": 2
+    },
+    {
+      "number": 5,
+      "slug": "project_05_computer",
+      "title": "Computer architecture",
+      "tagline": "A fetch-execute loop made of your own gates. The summit of the hardware half.",
+      "workbench": "hardware/machine.py",
+      "lesson": null,
+      "status": "locked",
+      "suite": {
+        "total": 0,
+        "passed": 0,
+        "failed": 0,
+        "skipped": 0
+      },
+      "optimal": {
+        "total": 0,
+        "passed": 0
+      },
+      "chips": [
+        {
+          "name": "memory",
+          "label": "Memory",
+          "tests": null,
+          "green": false,
+          "built": false,
+          "used": null,
+          "par": null,
+          "budget": null,
+          "note": "planned"
+        },
+        {
+          "name": "cpu",
+          "label": "CPU",
+          "tests": null,
+          "green": false,
+          "built": false,
+          "used": null,
+          "par": null,
+          "budget": null,
+          "note": "planned"
+        },
+        {
+          "name": "computer",
+          "label": "Computer",
+          "tests": null,
+          "green": false,
+          "built": false,
+          "used": null,
+          "par": null,
+          "budget": null,
+          "note": "planned"
+        }
+      ],
+      "chips_green": 0,
+      "chips_total": 3
+    },
+    {
+      "number": 6,
+      "slug": "project_06_assembler",
+      "title": "Assembler",
+      "tagline": "Symbolic Hack to binary. Your first translator, and the easy one.",
+      "workbench": "software/assembler/",
+      "lesson": null,
+      "status": "locked",
+      "suite": {
+        "total": 0,
+        "passed": 0,
+        "failed": 0,
+        "skipped": 0
+      },
+      "optimal": {
+        "total": 0,
+        "passed": 0
+      },
+      "chips": [
+        {
+          "name": "parser",
+          "label": "Parser",
+          "tests": null,
+          "green": false,
+          "built": false,
+          "used": null,
+          "par": null,
+          "budget": null,
+          "note": "planned"
+        },
+        {
+          "name": "code",
+          "label": "Code",
+          "tests": null,
+          "green": false,
+          "built": false,
+          "used": null,
+          "par": null,
+          "budget": null,
+          "note": "planned"
+        },
+        {
+          "name": "symbol_table",
+          "label": "SymbolTable",
+          "tests": null,
+          "green": false,
+          "built": false,
+          "used": null,
+          "par": null,
+          "budget": null,
+          "note": "planned"
+        },
+        {
+          "name": "assembler",
+          "label": "Assembler",
+          "tests": null,
+          "green": false,
+          "built": false,
+          "used": null,
+          "par": null,
+          "budget": null,
+          "note": "planned"
+        }
+      ],
+      "chips_green": 0,
+      "chips_total": 4
+    },
+    {
+      "number": 7,
+      "slug": "project_07_vm_stack",
+      "title": "Virtual machine I",
+      "tagline": "A stack machine, and the realisation that a compiler does not have to target hardware.",
+      "workbench": "software/vm/",
+      "lesson": null,
+      "status": "locked",
+      "suite": {
+        "total": 0,
+        "passed": 0,
+        "failed": 0,
+        "skipped": 0
+      },
+      "optimal": {
+        "total": 0,
+        "passed": 0
+      },
+      "chips": [
+        {
+          "name": "arithmetic",
+          "label": "Stack arithmetic",
+          "tests": null,
+          "green": false,
+          "built": false,
+          "used": null,
+          "par": null,
+          "budget": null,
+          "note": "planned"
+        },
+        {
+          "name": "memory_access",
+          "label": "Memory access",
+          "tests": null,
+          "green": false,
+          "built": false,
+          "used": null,
+          "par": null,
+          "budget": null,
+          "note": "planned"
+        }
+      ],
+      "chips_green": 0,
+      "chips_total": 2
+    },
+    {
+      "number": 8,
+      "slug": "project_08_vm_control",
+      "title": "Virtual machine II",
+      "tagline": "Branching, functions, and the call stack. The hardest bookkeeping in the course.",
+      "workbench": "software/vm/",
+      "lesson": null,
+      "status": "locked",
+      "suite": {
+        "total": 0,
+        "passed": 0,
+        "failed": 0,
+        "skipped": 0
+      },
+      "optimal": {
+        "total": 0,
+        "passed": 0
+      },
+      "chips": [
+        {
+          "name": "branching",
+          "label": "Branching",
+          "tests": null,
+          "green": false,
+          "built": false,
+          "used": null,
+          "par": null,
+          "budget": null,
+          "note": "planned"
+        },
+        {
+          "name": "functions",
+          "label": "Function calls",
+          "tests": null,
+          "green": false,
+          "built": false,
+          "used": null,
+          "par": null,
+          "budget": null,
+          "note": "planned"
+        },
+        {
+          "name": "bootstrap",
+          "label": "Bootstrap",
+          "tests": null,
+          "green": false,
+          "built": false,
+          "used": null,
+          "par": null,
+          "budget": null,
+          "note": "planned"
+        }
+      ],
+      "chips_green": 0,
+      "chips_total": 3
+    },
+    {
+      "number": 9,
+      "slug": "project_09_jack",
+      "title": "A program of your own",
+      "tagline": "Write something in Jack before you have to compile it. Empathy for the user of your compiler.",
+      "workbench": "projects/09/",
+      "lesson": null,
+      "status": "locked",
+      "suite": {
+        "total": 0,
+        "passed": 0,
+        "failed": 0,
+        "skipped": 0
+      },
+      "optimal": {
+        "total": 0,
+        "passed": 0
+      },
+      "chips": [
+        {
+          "name": "program",
+          "label": "Your Jack program",
+          "tests": null,
+          "green": false,
+          "built": false,
+          "used": null,
+          "par": null,
+          "budget": null,
+          "note": "planned"
+        }
+      ],
+      "chips_green": 0,
+      "chips_total": 1
+    },
+    {
+      "number": 10,
+      "slug": "project_10_parser",
+      "title": "Compiler I: syntax",
+      "tagline": "Tokenizer and recursive-descent parser. Grammar as a data structure.",
+      "workbench": "software/compiler/",
+      "lesson": null,
+      "status": "locked",
+      "suite": {
+        "total": 0,
+        "passed": 0,
+        "failed": 0,
+        "skipped": 0
+      },
+      "optimal": {
+        "total": 0,
+        "passed": 0
+      },
+      "chips": [
+        {
+          "name": "tokenizer",
+          "label": "Tokenizer",
+          "tests": null,
+          "green": false,
+          "built": false,
+          "used": null,
+          "par": null,
+          "budget": null,
+          "note": "planned"
+        },
+        {
+          "name": "parser",
+          "label": "Parser",
+          "tests": null,
+          "green": false,
+          "built": false,
+          "used": null,
+          "par": null,
+          "budget": null,
+          "note": "planned"
+        }
+      ],
+      "chips_green": 0,
+      "chips_total": 2
+    },
+    {
+      "number": 11,
+      "slug": "project_11_codegen",
+      "title": "Compiler II: code",
+      "tagline": "Symbol tables and VM code generation. Where the stack of abstractions closes.",
+      "workbench": "software/compiler/",
+      "lesson": null,
+      "status": "locked",
+      "suite": {
+        "total": 0,
+        "passed": 0,
+        "failed": 0,
+        "skipped": 0
+      },
+      "optimal": {
+        "total": 0,
+        "passed": 0
+      },
+      "chips": [
+        {
+          "name": "symbols",
+          "label": "Symbol tables",
+          "tests": null,
+          "green": false,
+          "built": false,
+          "used": null,
+          "par": null,
+          "budget": null,
+          "note": "planned"
+        },
+        {
+          "name": "expressions",
+          "label": "Expressions",
+          "tests": null,
+          "green": false,
+          "built": false,
+          "used": null,
+          "par": null,
+          "budget": null,
+          "note": "planned"
+        },
+        {
+          "name": "statements",
+          "label": "Statements",
+          "tests": null,
+          "green": false,
+          "built": false,
+          "used": null,
+          "par": null,
+          "budget": null,
+          "note": "planned"
+        },
+        {
+          "name": "objects",
+          "label": "Objects",
+          "tests": null,
+          "green": false,
+          "built": false,
+          "used": null,
+          "par": null,
+          "budget": null,
+          "note": "planned"
+        },
+        {
+          "name": "arrays",
+          "label": "Arrays",
+          "tests": null,
+          "green": false,
+          "built": false,
+          "used": null,
+          "par": null,
+          "budget": null,
+          "note": "planned"
+        }
+      ],
+      "chips_green": 0,
+      "chips_total": 5
+    },
+    {
+      "number": 12,
+      "slug": "project_12_os",
+      "title": "Operating system",
+      "tagline": "Multiplication, allocation, graphics and text, written in the language you just built.",
+      "workbench": "software/os/",
+      "lesson": null,
+      "status": "locked",
+      "suite": {
+        "total": 0,
+        "passed": 0,
+        "failed": 0,
+        "skipped": 0
+      },
+      "optimal": {
+        "total": 0,
+        "passed": 0
+      },
+      "chips": [
+        {
+          "name": "math",
+          "label": "Math",
+          "tests": null,
+          "green": false,
+          "built": false,
+          "used": null,
+          "par": null,
+          "budget": null,
+          "note": "planned"
+        },
+        {
+          "name": "memory",
+          "label": "Memory",
+          "tests": null,
+          "green": false,
+          "built": false,
+          "used": null,
+          "par": null,
+          "budget": null,
+          "note": "planned"
+        },
+        {
+          "name": "screen",
+          "label": "Screen",
+          "tests": null,
+          "green": false,
+          "built": false,
+          "used": null,
+          "par": null,
+          "budget": null,
+          "note": "planned"
+        },
+        {
+          "name": "keyboard",
+          "label": "Keyboard",
+          "tests": null,
+          "green": false,
+          "built": false,
+          "used": null,
+          "par": null,
+          "budget": null,
+          "note": "planned"
+        },
+        {
+          "name": "string",
+          "label": "String",
+          "tests": null,
+          "green": false,
+          "built": false,
+          "used": null,
+          "par": null,
+          "budget": null,
+          "note": "planned"
+        },
+        {
+          "name": "array",
+          "label": "Array",
+          "tests": null,
+          "green": false,
+          "built": false,
+          "used": null,
+          "par": null,
+          "budget": null,
+          "note": "planned"
+        },
+        {
+          "name": "output",
+          "label": "Output",
+          "tests": null,
+          "green": false,
+          "built": false,
+          "used": null,
+          "par": null,
+          "budget": null,
+          "note": "planned"
+        },
+        {
+          "name": "sys",
+          "label": "Sys",
+          "tests": null,
+          "green": false,
+          "built": false,
+          "used": null,
+          "par": null,
+          "budget": null,
+          "note": "planned"
+        }
+      ],
+      "chips_green": 0,
+      "chips_total": 8
+    }
+  ],
+  "side_quests": [
+    {
+      "id": "nand-golf",
+      "title": "Hit par on all fifteen gates",
+      "after": 1,
+      "effort": "an evening",
+      "kind": "hardware",
+      "blurb": "The -m optimal suite enforces the minimal NAND count for every Project 1 chip. It is a genuine puzzle set, and it teaches the one optimisation that matters: compute a shared subexpression once.",
+      "status": "idea"
+    },
+    {
+      "id": "nor-world",
+      "title": "Rebuild everything from NOR",
+      "after": 1,
+      "effort": "an evening",
+      "kind": "theory",
+      "blurb": "NOR is also functionally complete. Derive the basis from it, then ask which gates get cheaper and which get dearer -- and why CMOS prefers one.",
+      "status": "idea"
+    },
+    {
+      "id": "circuit-lower-bound",
+      "title": "Prove most functions need exponentially many gates",
+      "after": 1,
+      "effort": "an evening",
+      "kind": "theory",
+      "blurb": "A counting argument: there are 2^(2^n) Boolean functions but only so many small circuits, so almost every function needs about 2^n/n gates. Shannon, 1949. Sobering, and a nice contrast with the constructive DNF bound.",
+      "status": "idea"
+    },
+    {
+      "id": "smt-verify",
+      "title": "Prove the chips correct instead of testing them",
+      "after": 1,
+      "effort": "a weekend",
+      "kind": "tooling",
+      "blurb": "Bit-blast a gate and its specification into SAT and check that the difference is unsatisfiable. Exhaustive testing works at 16 bits; proof scales. Z3 via its Python bindings.",
+      "status": "idea"
+    },
+    {
+      "id": "carry-lookahead",
+      "title": "An adder with logarithmic depth",
+      "after": 2,
+      "effort": "a weekend",
+      "kind": "hardware",
+      "blurb": "Ripple-carry has O(n) delay. Add a depth counter to the simulator, measure the critical path, then build a carry-lookahead adder and watch depth fall to O(log n) while gate count rises. The first real area-vs-time trade.",
+      "status": "idea"
+    },
+    {
+      "id": "barrel-shifter",
+      "title": "Shift by any amount in log-depth muxes",
+      "after": 2,
+      "effort": "an evening",
+      "kind": "hardware",
+      "blurb": "Hack has no shift instruction, which is why Jack multiplication is slow. Build a 16-bit barrel shifter from four mux layers, then ask what adding a shift opcode would do to Project 12's Math.multiply.",
+      "status": "idea"
+    },
+    {
+      "id": "hardware-multiplier",
+      "title": "A combinational 16x16 multiplier",
+      "after": 2,
+      "effort": "a weekend",
+      "kind": "hardware",
+      "blurb": "An array multiplier, measured in NANDs. Then compare against the software Math.multiply you will write in Project 12 and decide which the Hack designers should have chosen.",
+      "status": "idea"
+    },
+    {
+      "id": "minifloat",
+      "title": "IEEE-754 addition, in miniature",
+      "after": 2,
+      "effort": "a project",
+      "kind": "hardware",
+      "blurb": "An 8- or 16-bit float adder: unpack, align exponents, add, renormalise, round to nearest even. Brutal, and the fastest way to understand why floating point surprises people.",
+      "status": "idea"
+    },
+    {
+      "id": "event-driven-sim",
+      "title": "Simulate time properly",
+      "after": 3,
+      "effort": "a weekend",
+      "kind": "tooling",
+      "blurb": "Replace function composition with an event queue and per-gate propagation delay. Then build a flip-flop out of two NANDs and watch it go metastable -- the thing the clean abstraction hides from you.",
+      "status": "idea"
+    },
+    {
+      "id": "prove-the-pc",
+      "title": "Verify the program counter by induction",
+      "after": 3,
+      "effort": "an evening",
+      "kind": "theory",
+      "blurb": "The PC is the first chip with a nontrivial temporal specification. State it as an invariant over clock cycles and prove it, rather than sampling 200 cycles.",
+      "status": "idea"
+    },
+    {
+      "id": "rust-emulator",
+      "title": "Port the emulator to Rust",
+      "after": 5,
+      "effort": "a project",
+      "kind": "languages",
+      "blurb": "The gate-level Computer is too slow to play Pong. Write the behavioural emulator in Rust and differential-test it against the Python one. Tight integer loops, no allocation, a reference implementation to check against: a well-scoped first Rust project.",
+      "status": "idea"
+    },
+    {
+      "id": "verilog-fpga",
+      "title": "Put your CPU on real silicon",
+      "after": 5,
+      "effort": "a project",
+      "kind": "hardware",
+      "blurb": "Rewrite the CPU in Verilog, synthesise with Yosys and nextpnr, and run it on a forty-euro iCE40 board. The moment the abstraction stops being a metaphor.",
+      "status": "idea"
+    },
+    {
+      "id": "cache",
+      "title": "Add a cache and measure it",
+      "after": 5,
+      "effort": "a weekend",
+      "kind": "systems",
+      "blurb": "Direct-mapped first, then two-way set-associative. Instrument hit rate on real programs. Memory hierarchy is the one major architectural idea nand2tetris leaves out entirely.",
+      "status": "idea"
+    },
+    {
+      "id": "pipeline",
+      "title": "Pipeline the CPU, then fix the hazards",
+      "after": 5,
+      "effort": "a project",
+      "kind": "hardware",
+      "blurb": "Split fetch and execute into two stages, discover data and control hazards, then stall and forward your way out of them. This is most of a first graduate architecture course.",
+      "status": "idea"
+    },
+    {
+      "id": "turing-complete",
+      "title": "Prove the Hack machine is Turing-complete",
+      "after": 5,
+      "effort": "an evening",
+      "kind": "theory",
+      "blurb": "Modulo its finite memory. Simulate a two-counter machine, or reduce from a known universal model. Makes precise what 'general-purpose computer' actually claims.",
+      "status": "idea"
+    },
+    {
+      "id": "debugger",
+      "title": "A debugger for your own machine",
+      "after": 6,
+      "effort": "a weekend",
+      "kind": "tooling",
+      "blurb": "Step, breakpoints, memory and register inspection, symbol lookup from the assembler's table. You will want this long before Project 8 is finished.",
+      "status": "idea"
+    },
+    {
+      "id": "peephole",
+      "title": "Optimise the code your translator emits",
+      "after": 8,
+      "effort": "a weekend",
+      "kind": "tooling",
+      "blurb": "The naive VM-to-assembly translation is wildly redundant. Add constant folding and a peephole pass, then measure cycles saved on a real program. Optimisation with a number attached to it.",
+      "status": "idea"
+    },
+    {
+      "id": "jack-types",
+      "title": "A type checker for Jack",
+      "after": 11,
+      "effort": "a weekend",
+      "kind": "languages",
+      "blurb": "Jack is nominally typed and almost entirely unchecked. Add a checker, then argue about how much it would have to reject to be sound.",
+      "status": "idea"
+    },
+    {
+      "id": "gc",
+      "title": "Garbage collection for Jack objects",
+      "after": 11,
+      "effort": "a project",
+      "kind": "systems",
+      "blurb": "Jack has new and dispose and no safety net. Write a mark-sweep collector over your own heap, then a copying one, and compare fragmentation.",
+      "status": "idea"
+    },
+    {
+      "id": "wasm-backend",
+      "title": "Retarget the compiler to WebAssembly",
+      "after": 11,
+      "effort": "a project",
+      "kind": "languages",
+      "blurb": "Same front end, new back end: emit WASM instead of Hack VM code and run your Jack programs in a browser. The clearest possible demonstration of why the intermediate language exists.",
+      "status": "idea"
+    },
+    {
+      "id": "self-hosting",
+      "title": "Compile the compiler with itself",
+      "after": 11,
+      "effort": "a project",
+      "kind": "languages",
+      "blurb": "Rewrite the Jack compiler in Jack, compile it with the Python one, then compile it with itself and check the two outputs are identical. The classic bootstrap, and an unreasonable amount of fun.",
+      "status": "idea"
+    },
+    {
+      "id": "tetris",
+      "title": "Actually write Tetris",
+      "after": 12,
+      "effort": "a weekend",
+      "kind": "systems",
+      "blurb": "The thing the course is named after, and nobody makes you do it. Your language, your compiler, your VM, your assembler, your CPU, your gates.",
+      "status": "idea"
+    }
+  ]
+}
